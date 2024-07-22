@@ -1,5 +1,6 @@
 spring:
   profiles:
     active: db
-  application:
-    name: system-common
+　　mvc:
+　　　　favicon:
+　　　　　　enabled: false

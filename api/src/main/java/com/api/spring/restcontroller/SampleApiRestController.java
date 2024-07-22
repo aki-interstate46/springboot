@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.spring.service.SampleApiService;
-import com.apicommon.spring.restcontroller.BaseApiResrControlerImpl;
+import com.apicommon.spring.restcontroller.BaseApiRestControlerImpl;
 
 @RestController
 @RequestMapping(value = "/sample")
-public class SampleApiRestController extends BaseApiResrControlerImpl {
+public class SampleApiRestController extends BaseApiRestControlerImpl {
 	
 	private SampleApiService service;
 	
