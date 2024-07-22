@@ -8,9 +8,7 @@ import com.webcommon.spring.service.RestfulServiceImpl;
 public class SampleApiService extends RestfulServiceImpl {
 
 	@Override
-	public String getProcessor() throws Exception {
-		// TODO 自動生成されたメソッド・スタブ
-		return "test";
+	public void getProcessor() throws Exception {
 	}
 
 }

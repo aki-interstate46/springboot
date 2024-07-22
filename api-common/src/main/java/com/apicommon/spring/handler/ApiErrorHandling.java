@@ -14,7 +14,7 @@ import com.webcommon.response.JsonResponse;
 
 @ControllerAdvice
 public class ApiErrorHandling {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ApiErrorHandling.class);
+    private Logger LOGGER = LoggerFactory.getLogger(this.getClass());
     
     private String handlingCommon(Exception e) {
     	JsonResponse jsonResponse = new JsonResponse();

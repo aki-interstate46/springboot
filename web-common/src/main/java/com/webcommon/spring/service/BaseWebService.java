@@ -9,6 +9,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 public abstract class BaseWebService {
+	public abstract void getProcessor() throws Exception;
+	public abstract void postProcessor() throws Exception;
+	public abstract void putProcessor() throws Exception;
+	public abstract void deleteProcessor() throws Exception;
 	protected BaseWebForm form;
 
 	protected BindingResult result;

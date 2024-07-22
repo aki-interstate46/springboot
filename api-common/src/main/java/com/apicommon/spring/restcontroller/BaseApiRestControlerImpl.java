@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class BaseApiResrControlerImpl extends BaseApiResrControler {
+public class BaseApiRestControlerImpl extends BaseApiRestControler {
 
 	@Override
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
