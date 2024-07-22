@@ -4,5 +4,5 @@ https://docs.github.com/ja/get-started/writing-on-github/getting-started-with-wr
 # 2024/07/22
 > [!NOTE]
 > githubアカウントの作成  
-> 資材管理用プロジェクトの追加
+> 資材管理用プロジェクトの追加  
 > APIの実装
