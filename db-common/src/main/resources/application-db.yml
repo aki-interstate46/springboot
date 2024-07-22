@@ -1,0 +1,15 @@
+# Conversion to YAML from Properties formar report
+# Warnings:
+# - The yaml file had comments which are lost in the refactoring!
+spring:
+  application:
+    name: db-common
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    jdbcUrl: jdbc:mysql://localhost:13306/spring_boot_project_01?permitMysqlScheme
+    username: root
+    password: root
+job:
+  service:
+    package:
+      sample: com.job.spring.service.SampleJobService

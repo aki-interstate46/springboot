@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+    <classPathEntry
+            location="C:\sts-4.23.1.RELEASE\workspace\mybatis-generator\docs\lib\mariadb-java-client-2.2.0.jar" />
+    <context id="context1" targetRuntime="MyBatis3">
+
+        <!--  MapperにMapperアノテーションを付与   -->
+        <plugin type="org.mybatis.generator.plugins.MapperAnnotationPlugin"/>
+        <!--  equalsおよびhashCodeを自動生成      -->
+        <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"/>
+        <!-- マッパxmlファイルを生成時に上書きするためのプラグイン -->
+        <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin"/>
+
+        <!-- コメント生成の抑制 -->
+        <commentGenerator>
+            <property name="suppressDate" value="true" />
+            <property name="addRemarkComments" value="false" />
+        </commentGenerator>
+
+        <!--     JDBCの設定 -->
+        <jdbcConnection
+                driverClass="org.mariadb.jdbc.Driver"
+                connectionURL="jdbc:mysql://localhost:13306/spring_boot_project_01"
+                userId="root"
+                password="root"
+        />
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!--  Entityの生成場所 -->
+        <javaModelGenerator
+                targetPackage="com.dbcommon.mybatis.springbootproject01.entity.autogenerato"
+                targetProject="src/main/java/"
+        />
+        <!--  Mapper(xml)の生成場所 -->
+        <sqlMapGenerator
+            targetPackage="com.dbcommon.mybatis.springbootproject01.mapper.autogenerato"
+            targetProject="src/main/resources/"
+        />
+
+        <!--  Mapper(java)の生成場所 -->
+        <javaClientGenerator
+                targetPackage="com.dbcommon.mybatis.springbootproject01.mapper.autogenerato"
+                targetProject="src/main/java/"
+                type="XMLMAPPER"
+        />
+
+        <!--  生成対象のテーブル -->
+        <table tableName="account"  modelType="hierarchical" />
+    </context>
+</generatorConfiguration>
