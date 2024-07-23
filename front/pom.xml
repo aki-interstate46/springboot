@@ -5,13 +5,13 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.3.1</version>
+		<version>3.3.2</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>api.common</groupId>
-	<artifactId>api-common</artifactId>
+	<groupId>com.front</groupId>
+	<artifactId>front</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>api-common</name>
+	<name>front</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>
@@ -28,18 +28,23 @@
 	</scm>
 	<properties>
 		<java.version>17</java.version>
+		<start-class>com.front.FrontApplication</start-class>
 	</properties>
 	<dependencies>
 		<!-- プロジェクトインポート -->
 		<dependency>
-			<groupId>web.common</groupId>
-			<artifactId>web-common</artifactId>
+			<groupId>com.front</groupId>
+			<artifactId>front-common</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
 		<dependency>
@@ -47,12 +52,6 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>1.18.32</version>
-		</dependency>
-
 	</dependencies>
 
 	<build>

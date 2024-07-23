@@ -37,12 +37,12 @@ public abstract class BaseWebService {
 		return this;
 	}
 	
-	public BaseWebService setForm(HttpServletRequest request) {
+	public BaseWebService setRequest(HttpServletRequest request) {
 		this.request = request;
 		return this;
 	}
 	
-	public BaseWebService setForm(HttpServletResponse response) {
+	public BaseWebService setResponse(HttpServletResponse response) {
 		this.response = response;
 		return this;
 	}

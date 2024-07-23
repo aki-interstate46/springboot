@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: db
+    active: db,front
 　　mvc:
 　　　　favicon:
 　　　　　　enabled: false
