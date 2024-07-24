@@ -3,16 +3,22 @@ package com.front.spring.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.front.form.Sample;
+import com.frontcommon.spring.component.SampleApiIntegration;
 import com.webcommon.spring.service.BaseWebService;
 
 @Service
 public class SampleService extends BaseWebService {
 
+	@Autowired
+	private SampleApiIntegration sampleApiIntegration;
+	
 	@Override
 	public void getProcessor() throws Exception {
+		sampleApiIntegration.get();
 		other("get");
 	}
 
