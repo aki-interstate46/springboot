@@ -10,7 +10,7 @@ import org.springframework.web.client.RestClientException;
 
 import com.frontcommon.exception.RestClientApiException;
 import com.systemcommon.enums.ApiResultInfo;
-import com.systemcommon.util.GsonUtil;
+import com.systemcommon.spring.component.GsonUtil;
 import com.webcommon.response.JsonResponse;
 
 @ControllerAdvice

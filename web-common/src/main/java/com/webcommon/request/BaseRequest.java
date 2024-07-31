@@ -1,5 +1,7 @@
 package com.webcommon.request;
 
-public class BaseRequest {
+import com.webcommon.form.BaseWebForm;
+
+public class BaseRequest extends BaseWebForm {
 
 }
