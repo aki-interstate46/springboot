@@ -21,13 +21,13 @@ public class RestClientImple extends BaseRestClient {
 	public JsonResponse getBodyTypeJsonResponse(String url, Map<String, String> parameterMap) throws Exception {
 		return get(url, parameterMap).body(JsonResponse.class);
 	}
-	public JsonResponse putBodyTypeJsonResponse(String url, String body) throws Exception {
-		return put(url, body).body(JsonResponse.class);
-	}
-	public JsonResponse postBodyTypeJsonResponse(String url, String body) throws Exception {
+	public JsonResponse postBodyTypeJsonResponse(String url, Object body) throws Exception {
 		return post(url, body).body(JsonResponse.class);
 	}
-	public JsonResponse deleteBodyTypeJsonResponse(String url, String body) throws Exception {
+	public JsonResponse putBodyTypeJsonResponse(String url, Object body) throws Exception {
+		return put(url, body).body(JsonResponse.class);
+	}
+	public JsonResponse deleteBodyTypeJsonResponse(String url, Object body) throws Exception {
 		return delete(url, body).body(JsonResponse.class);
 	}
 }

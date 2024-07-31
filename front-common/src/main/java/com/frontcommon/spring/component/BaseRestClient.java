@@ -43,9 +43,8 @@ public abstract class BaseRestClient {
 		return configureInformationAccess(method, uri, null);
 	}
 
-	protected ResponseSpec configureInformationAccess(HttpMethod method, String uri, String body) throws RestClientApiException {
+	protected ResponseSpec configureInformationAccess(HttpMethod method, String uri, Object body) throws RestClientApiException {
 		RequestBodySpec requestBodySpec = restClientBuild(false).method(method).uri(BASE_URL + "/" + uri);
-
 		if (HttpMethod.GET.equals(method)) {
 			requestBodySpec.accept(MediaType.APPLICATION_JSON);
 		} else {
@@ -54,12 +53,7 @@ public abstract class BaseRestClient {
 				requestBodySpec.body(body);
 			}
 		}
-		
 		return requestBodySpec.retrieve().onStatus(new ResponseErrorHandlerImpl());
-//		try {
-//		} catch (Exception e) {
-//		      throw new RestClientException(requestBodySpec.retrieve().getStatusCode(), requestBodySpec.getHeaders()); 
-//		}
 	}
 
 	protected ResponseSpec get(String url) throws RestClientApiException, ArrayIndexOutOfBoundsException, UnsupportedEncodingException, IllegalArgumentException {
@@ -71,16 +65,19 @@ public abstract class BaseRestClient {
 		if (parameterMap != null) {
 			for (Entry<String, String> entry : parameterMap.entrySet()) {
 				final Object value = entry.getValue();
+				if (value == null) {
+					continue;
+				}
 				if (value instanceof Date) {
 					
 				} else if (value.getClass().isArray()) {
 					String _value = "";
 					for (int i = 0; i < Array.getLength(value); i++) {
-						_value += ("," + URLEncoder.encode(Array.get(value, i).toString(), "UTF-8"));
+						_value += ("," + Array.get(value, i).toString());
 					}
 					parame += "&" + entry.getKey() + "=" + _value;
 				} else {
-					parame += "&" + entry.getKey() + "=" + URLEncoder.encode(entry.getValue(), "UTF-8");
+					parame += "&" + entry.getKey() + "=" + entry.getValue();
 				}
 			}
 			parame = parame.replaceFirst("&", "?");
@@ -89,15 +86,15 @@ public abstract class BaseRestClient {
 		return configureInformationAccess(HttpMethod.GET, url);
 	}
 
-	protected ResponseSpec post(String url, String body) throws RestClientApiException {
+	protected ResponseSpec post(String url, Object body) throws RestClientApiException {
 		return configureInformationAccess(HttpMethod.POST, url, body);
 	}
 
-	protected ResponseSpec put(String url, String body) throws RestClientApiException {
+	protected ResponseSpec put(String url, Object body) throws RestClientApiException {
 		return configureInformationAccess(HttpMethod.PUT, url, body);
 	}
 
-	protected ResponseSpec delete(String url, String body) throws RestClientApiException {
+	protected ResponseSpec delete(String url, Object body) throws RestClientApiException {
 		return configureInformationAccess(HttpMethod.DELETE, url, body);
 	}
 }

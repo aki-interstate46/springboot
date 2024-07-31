@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.systemcommon.enums.ApiResultInfo;
-import com.systemcommon.util.GsonUtil;
+import com.systemcommon.spring.component.GsonUtil;
 import com.webcommon.response.JsonResponse;
 
 @ControllerAdvice

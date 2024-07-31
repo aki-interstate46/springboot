@@ -1,9 +1,7 @@
 package com.frontcommon.spring.component;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.web.client.RestClientSsl;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestClient.Builder;
 
 import com.webcommon.response.JsonResponse;
 

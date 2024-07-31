@@ -3,7 +3,7 @@ package com.frontcommon.spring.service;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 
 import com.google.gson.Gson;
-import com.systemcommon.util.GsonUtil;
+import com.systemcommon.spring.component.GsonUtil;
 import com.webcommon.response.JsonResponse;
 import com.webcommon.spring.service.BaseWebService;
 

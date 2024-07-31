@@ -8,7 +8,6 @@ import org.springframework.web.client.ResponseErrorHandler;
 
 import com.frontcommon.exception.RestClientApiException;
 
-
 public class ResponseErrorHandlerImpl implements ResponseErrorHandler {
 
 	@Override

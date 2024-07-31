@@ -20,7 +20,6 @@ public class SampleApiRestController extends BaseApiRestControlerImpl {
 		this.service = service;
 	}
 
-	@Override
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public String get() throws Exception {
 		return service.get();
