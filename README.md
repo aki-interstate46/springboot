@@ -12,6 +12,7 @@ https://docs.github.com/ja/get-started/writing-on-github/getting-started-with-wr
 
 # 2024/07/31
 > [!NOTE]
+> [issues](https://github.com/aki-interstate46/springboot/issues/6)  
 > アカウント画面の作成  
 > RestClientの修正  
 > vueの導入  
@@ -19,15 +20,18 @@ https://docs.github.com/ja/get-started/writing-on-github/getting-started-with-wr
 
 # 2024/07/23
 > [!NOTE]
+> [issues](https://github.com/aki-interstate46/springboot/issues/5)  
 > フロントエンドとバックエンドの接続  
 > エラーハンドリングの作成  
 
 # 2024/07/23
 > [!NOTE]
+> [issues](https://github.com/aki-interstate46/springboot/issues/3)  
 > 画面の仮実装
 
 # 2024/07/22
 > [!NOTE]
+> [issues](https://github.com/aki-interstate46/springboot/issues/1)  
 > githubアカウントの作成  
 > 資材管理用プロジェクトの追加  
 > APIの実装
