@@ -14,22 +14,33 @@ import com.webcommon.request.AccountRequest;
 import com.webcommon.response.FrontSearchResponse;
 import com.webcommon.spring.service.RestfulServiceImpl;
 
+/**
+* アカウントRESTAPIクラス
+* 
+* @author　Y.AKI
+* @version　1.0.0
+*/
 @Service
 public class AccountApiService extends RestfulServiceImpl {
-
+	
 	private AccountMapper accountMapper;
-
+	
 	@Autowired
 	public void setAccountMapper(AccountMapper accountMapper) {
 		this.accountMapper = accountMapper;
 	}
-
+	
+  /**
+   * 業務ロジック（Get）
+   * 
+   * @return form
+   */
 	@Override
 	public void getProcessor() throws Exception {
 		AccountRequest form = (AccountRequest) this.form;
-				
-		AccountExample example = new AccountExample();
 		
+		AccountExample example = new AccountExample();
+		// @formatter:off
 		if (form.getAccountId() != null) {
 			example
 			  .createCriteria()
@@ -53,14 +64,19 @@ public class AccountApiService extends RestfulServiceImpl {
 			  .createCriteria()
 			    .andAccountReadEqualTo(form.getAccountRead());
 		}
-		
+		// @formatter:onn
 		
 		FrontSearchResponse response = new FrontSearchResponse();
 		response.setSize(Long.bitCount(accountMapper.countByExample(example)));
 		response.getList().addAll(accountMapper.selectByExample(example));
 		this.response.setResponse(response);
 	}
-
+	
+  /**
+   * 業務ロジック（Post）
+   * 
+   * @return form
+   */
 	@Override
 	public void postProcessor() throws Exception {
 		AccountRequest form = (AccountRequest) this.form;
@@ -74,20 +90,30 @@ public class AccountApiService extends RestfulServiceImpl {
 		account.setUpdateDatetime(new Date());
 		accountMapper.insert(account);
 	}
-
+	
+  /**
+   * 業務ロジック（Put）
+   * 
+   * @return form
+   */
 	@Override
 	public void putProcessor() throws Exception {
 		AccountRequest form = (AccountRequest) this.form;
 		Account account = new Account();
 		account.setAccountId(form.getAccountId());
 		Account _account = accountMapper.selectByPrimaryKey(account);
-
+		
 		BeanUtils.copyProperties(form, account);
 		account.setCreateDatetime(_account.getCreateDatetime());
 		account.setUpdateDatetime(new Date());
 		accountMapper.updateByPrimaryKey(account);
 	}
-
+	
+  /**
+   * 業務ロジック（Delete）
+   * 
+   * @return form
+   */
 	@Override
 	public void deleteProcessor() throws Exception {
 		AccountRequest form = (AccountRequest) this.form;
@@ -97,5 +123,5 @@ public class AccountApiService extends RestfulServiceImpl {
 		BeanUtils.copyProperties(form, account);
 		accountMapper.deleteByPrimaryKey(account);
 	}
-
+	
 }

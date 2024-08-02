@@ -7,17 +7,17 @@ import com.webcommon.response.JsonResponse;
 
 @Component
 public class SampleApiIntegration {
-
-	@Autowired
-	private RestClientImple restClient;
-	
-	private static final String URL = "sample";
-	
-	public void get() throws Exception {
-		JsonResponse ddd = restClient.getBodyTypeJsonResponse(URL);
-		ddd = restClient.putBodyTypeJsonResponse(URL, null);
-		ddd = restClient.postBodyTypeJsonResponse(URL, null);
-		ddd = restClient.deleteBodyTypeJsonResponse(URL, null);
-		System.out.println(ddd);
-	}
+  
+  @Autowired
+  private RestClientImple restClient;
+  
+  private static final String URL = "sample";
+  
+  public void get() throws Exception {
+    JsonResponse ddd = restClient.getBodyTypeJsonResponse(URL);
+    ddd = restClient.putBodyTypeJsonResponse(URL, null);
+    ddd = restClient.postBodyTypeJsonResponse(URL, null);
+    ddd = restClient.deleteBodyTypeJsonResponse(URL, null);
+    System.out.println(ddd);
+  }
 }

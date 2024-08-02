@@ -34,14 +34,12 @@ public class AccountController extends BaseFrontControler {
 	public void setSampleService(SampleService service) {
 		this.service = service;
 	}
-
+	
 	@GetMapping
 	public String get(@Validated Sample form, BindingResult result, Model model, HttpServletRequest request) throws Exception {
-//		service.setForm(form).setBindingResult(result).setModel(model).setRequest(request);
-//		service.getProcessor();
 		return TABLE_NAME;
 	}
-
+	
 	@PostMapping
 	public String post(@Validated Sample form, BindingResult result, Model model, HttpServletRequest request) throws Exception {
 		service.setForm(form).setBindingResult(result).setModel(model).setRequest(request);

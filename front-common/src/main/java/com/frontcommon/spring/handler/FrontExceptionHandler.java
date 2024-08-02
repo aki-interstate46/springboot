@@ -9,29 +9,51 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.client.RestClientException;
 
 import com.frontcommon.exception.RestClientApiException;
-import com.systemcommon.enums.ApiResultInfo;
-import com.systemcommon.spring.component.GsonUtil;
-import com.webcommon.response.JsonResponse;
 
+/**
+ * Frontハンドリングクラス
+ * 
+ * @author Y.AKI
+ * @version 1.0.0
+ */
 @ControllerAdvice
-public class FrontExceptionHandler extends ResponseErrorHandlerImpl {
-    private Logger LOGGER = LoggerFactory.getLogger(this.getClass());
-    
-    private String handlingCommon(Exception e) {
-    	return "error";
-    }
-    
-    @ExceptionHandler({Exception.class})
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public String handlerException(Exception e) {
-        return handlingCommon(e);
-    }
-    
-    @ExceptionHandler({RestClientApiException.class, RestClientException.class})
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public String handlerRestClientException(RestClientApiException e) {
-        LOGGER.error("Exception", e);
-        return handlingCommon(e);
-    }
-
+public class FrontExceptionHandler {
+  private Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+  
+  
+  /**
+   * エラー返却共通クラス
+   * 
+   * @param e エクセプション情報
+   * @return
+   */
+  private String handlingCommon(Exception e) {
+    return "error";
+  }
+  
+  /**
+	 * 指定していない場合のエラーをハンドリングするクラス
+	 * 
+   * @param e エクセプション情報
+   * @return 画面
+   */
+  @ExceptionHandler({ Exception.class })
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  public String handlerException(Exception e) {
+    return handlingCommon(e);
+  }
+  
+  /**
+   * RestApiハンドリングクラス
+   * 
+   * @param e エクセプション情報
+   * @return 画面
+   */
+  @ExceptionHandler({ RestClientApiException.class, RestClientException.class })
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  public String handlerRestClientException(RestClientApiException e) {
+    LOGGER.error("Exception", e);
+    return handlingCommon(e);
+  }
+  
 }

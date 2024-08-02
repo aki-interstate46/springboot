@@ -7,78 +7,121 @@ import com.systemcommon.spring.component.GsonUtil;
 import com.webcommon.response.JsonResponse;
 
 public abstract class RestfulServiceImpl extends BaseWebService {
-	
-	protected JsonResponse response;
-	
-	private void init() {
-		response = new JsonResponse();
-	}
-	
-	public boolean commonValidation() {
-		return false;
-	}
-	
-	private String json() {
-		if (response.getResult() == null) {
-			response.setResult("SUCCESS");
-		}
-		Gson gson = new GsonUtil().customDateFormat();
-		return gson.toJson(response);
-	}
-	
-	public String get() throws Exception {
-		this.init();
-		if (this.commonValidation()) {
+  
+  protected JsonResponse response;
 
-		}
-		this.getProcessor();
-		return json();
-	}
+	/** 初期化処理 */
+  private void init() {
+    response = new JsonResponse();
+  }
 
-	@Override
-	public void getProcessor() throws Exception {
-		throw new HttpRequestMethodNotSupportedException("#NOT SUPPORTED");
-	}
+	/** 共通処理 */
+  public boolean commonValidation() {
+    return false;
+  }
 
-	public String post() throws Exception {
-		this.init();
-		if (this.commonValidation()) {
+	/** 返却処理 */
+  private String json() {
+    if (response.getStatus() == null) {
+      response.setStatus("SUCCESS");
+    }
+    Gson gson = new GsonUtil().customDateFormat();
+    return gson.toJson(response);
+  }
 
-		}
-		this.postProcessor();
-		return json();
-	}
+	/**
+	 * Get通信共通処理
+	 * 
+	 * @throws Exception
+	 */
+  public String get() throws Exception {
+    this.init();
+    if (this.commonValidation()) {
+      
+    }
+    this.getProcessor();
+    return json();
+  }
 
-	@Override
-	public void postProcessor() throws Exception {
-		throw new HttpRequestMethodNotSupportedException("#NOT SUPPORTED");
-	}
+	/**
+	 * Get処理
+	 * 
+	 * @throws Exception
+	 */
+  @Override
+  public void getProcessor() throws Exception {
+    throw new HttpRequestMethodNotSupportedException("#NOT SUPPORTED");
+  }
 
-	public String put() throws Exception {
-		this.init();
-		if (this.commonValidation()) {
+	/**
+	 * Post通信共通処理
+	 * 
+	 * @throws Exception
+	 */
+  public String post() throws Exception {
+    this.init();
+    if (this.commonValidation()) {
+      
+    }
+    this.postProcessor();
+    return json();
+  }
 
-		}
-		this.putProcessor();
-		return json();
-	}
+	/**
+	 * Post処理
+	 * 
+	 * @throws Exception
+	 */
+  @Override
+  public void postProcessor() throws Exception {
+    throw new HttpRequestMethodNotSupportedException("#NOT SUPPORTED");
+  }
 
-	@Override
-	public void putProcessor() throws Exception {
-		throw new HttpRequestMethodNotSupportedException("#NOT SUPPORTED");
-	}
+	/**
+	 * Put処理
+	 * 
+	 * @throws Exception
+	 */
+  public String put() throws Exception {
+    this.init();
+    if (this.commonValidation()) {
+      
+    }
+    this.putProcessor();
+    return json();
+  }
 
-	public String delete() throws Exception {
-		this.init();
-		if (this.commonValidation()) {
+	/**
+	 * Put通信共通処理
+	 * 
+	 * @throws Exception
+	 */
+  @Override
+  public void putProcessor() throws Exception {
+    throw new HttpRequestMethodNotSupportedException("#NOT SUPPORTED");
+  }
 
-		}
-		this.deleteProcessor();
-		return json();
-	}
+	/**
+	 * Delete処理
+	 * 
+	 * @throws Exception
+	 */
+  public String delete() throws Exception {
+    this.init();
+    if (this.commonValidation()) {
+      
+    }
+    this.deleteProcessor();
+    return json();
+  }
 
-	@Override
-	public void deleteProcessor() throws Exception {
-		throw new HttpRequestMethodNotSupportedException("#NOT SUPPORTED");
-	}
+	/**
+	 * Delete処理
+	 * 
+	 * @throws Exception
+	 */
+  @Override
+  public void deleteProcessor() throws Exception {
+    throw new HttpRequestMethodNotSupportedException("#NOT SUPPORTED");
+  }
 }

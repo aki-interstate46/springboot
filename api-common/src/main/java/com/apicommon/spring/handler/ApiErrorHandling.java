@@ -12,24 +12,42 @@ import com.systemcommon.enums.ApiResultInfo;
 import com.systemcommon.spring.component.GsonUtil;
 import com.webcommon.response.JsonResponse;
 
+/**
+ * APIErrorハンドリングクラス
+ * 
+ * @author Y.AKI
+ * @version 1.0.0
+ */
 @ControllerAdvice
 public class ApiErrorHandling {
-    private Logger LOGGER = LoggerFactory.getLogger(this.getClass());
-    
-    private String handlingCommon(Exception e) {
-    	JsonResponse jsonResponse = new JsonResponse();
-    	jsonResponse.setResult(ApiResultInfo.ERROR.name());
-    	String resurt = new GsonUtil().customDateFormat().toJson(jsonResponse);
-    	LOGGER.debug("#ERROR RESPONSE：{}" , resurt);
-    	return resurt;
-    }
-    
-    @ResponseBody
-    @ExceptionHandler({Exception.class})
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public String handleException(Exception e) {
-        LOGGER.error("Exception", e);
-        return handlingCommon(e);
-    }
-	
+  private Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+  
+  /**
+   * ハンドリング共通クラス
+   * 
+   * @param e エラー情報
+   * @return エラー情報
+   */
+  private String handlingCommon(Exception e) {
+    JsonResponse jsonResponse = new JsonResponse();
+    jsonResponse.setStatus(ApiResultInfo.ERROR.name());
+    String resurt = new GsonUtil().customDateFormat().toJson(jsonResponse);
+    LOGGER.debug("#ERROR RESPONSE：{}", resurt);
+    return resurt;
+  }
+  
+	/**
+	 * 指定していない場合のエラーをハンドリングするクラス
+	 * 
+	 * @param e エラー情報
+	 * @return エラー情報
+	 */
+  @ResponseBody
+  @ExceptionHandler({ Exception.class })
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  public String handleException(Exception e) {
+    LOGGER.error("Exception", e);
+    return handlingCommon(e);
+  }
+  
 }
