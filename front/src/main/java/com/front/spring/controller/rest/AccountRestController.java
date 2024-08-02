@@ -25,11 +25,11 @@ public class AccountRestController extends BaseFrontControler {
 	
 	private AccountRestService service;
 	
-	private static final String TABLE_NAME = "account";
+	private static final String PROCESS_NAME = "account";
 	
 	@ModelAttribute
-	public AccountForm setUp(Model model) {
-		this.init(TABLE_NAME);
+	public AccountForm setUp(HttpServletRequest request) {
+		this.init(PROCESS_NAME);
 		return new AccountForm();
 	}
 	
