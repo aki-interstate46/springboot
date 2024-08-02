@@ -1,13 +1,13 @@
 package com.systemcommon.util;
 
-import java.lang.invoke.MethodHandles.Lookup.ClassOption;
-
+/**
+ * クラス名取得処理
+ * 
+ * @author Y.AKI
+ * @version 1.0.0
+ */
 public class UtilGetClassName {
 	public static String getClassName() {
-		System.out.println(Thread.currentThread().getStackTrace()[0].getClassName());
-		System.out.println(Thread.currentThread().getStackTrace()[1].getClassName());
-		System.out.println(Thread.currentThread().getStackTrace()[2].getClassName());
-		System.out.println(Thread.currentThread().getStackTrace()[3].getClassName());
 		return Thread.currentThread().getStackTrace()[1].getClassName();
 	}
 }

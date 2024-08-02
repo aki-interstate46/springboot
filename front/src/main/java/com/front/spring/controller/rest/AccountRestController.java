@@ -37,25 +37,25 @@ public class AccountRestController extends BaseFrontControler {
 	public void setAccountRestService(AccountRestService service) {
 		this.service = service;
 	}
-
+	
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public String get(@Validated AccountForm form, BindingResult result, Model model, HttpServletRequest request) throws Exception {
 		service.setForm(form).setBindingResult(result).setModel(model).setRequest(request);
 		return service.get();
 	}
-
+	
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public String post(@Validated AccountForm form, BindingResult result, Model model, HttpServletRequest request) throws Exception {
 		service.setForm(form).setBindingResult(result).setModel(model).setRequest(request);
 		return service.post();
 	}
-
+	
 	@PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public String put(@Validated AccountForm form, BindingResult result, Model model, HttpServletRequest request) throws Exception {
 		service.setForm(form).setBindingResult(result).setModel(model).setRequest(request);
 		return service.put();
 	}
-
+	
 	@DeleteMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public String delete(@Validated AccountForm form, BindingResult result, Model model, HttpServletRequest request) throws Exception {
 		service.setForm(form).setBindingResult(result).setModel(model).setRequest(request);
