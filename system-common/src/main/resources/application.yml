@@ -1,6 +1,0 @@
-spring:
-  profiles:
-    active: db,front
-　　mvc:
-　　　　favicon:
-　　　　　　enabled: false
