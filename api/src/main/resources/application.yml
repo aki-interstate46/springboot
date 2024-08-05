@@ -1,0 +1,5 @@
+spring:
+  profiles:
+    active: db,api,common
+  application:
+    name: api
