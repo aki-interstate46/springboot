@@ -2,6 +2,3 @@ spring:
   thymeleaf:
     cache: false
     prefix: classpath:/templates/
-    mvc:
-    　　favicon:
-    　　　　enabled: false
