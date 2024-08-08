@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.dbcommon.mybatis.springbootproject01.entity.autogenerato.Account;
 import com.dbcommon.mybatis.springbootproject01.entity.autogenerato.AccountExample;
+import com.dbcommon.mybatis.springbootproject01.entity.autogenerato.AccountExample.Criteria;
 import com.dbcommon.mybatis.springbootproject01.mapper.autogenerato.AccountMapper;
 import com.webcommon.request.AccountRequest;
 import com.webcommon.response.FrontSearchResponse;
@@ -40,29 +41,28 @@ public class AccountApiService extends RestfulServiceImpl {
 		AccountRequest form = (AccountRequest) this.form;
 		
 		AccountExample example = new AccountExample();
+		example
+	    .setOrderByClause("CREATE_DATETIME");
+		Criteria criteria = example.createCriteria();
 		// @formatter:off
 		if (form.getAccountId() != null) {
-			example
-			  .createCriteria()
-			    .andAccountIdEqualTo(form.getAccountId());
+			criteria.andAccountIdEqualTo(form.getAccountId());
 		}
 
 		if (form.getResourceId() != null) {
-			example
-			  .createCriteria()
-			    .andResourceIdEqualTo(form.getResourceId());
+			criteria.andResourceIdEqualTo(form.getResourceId());
 		}
 
 		if (form.getAccountName() != null) {
-			example
-			  .createCriteria()
-			    .andAccountNameEqualTo(form.getAccountName());
+			criteria.andAccountNameLike("%" + form.getAccountName() + "%");
 		}
 
 		if (form.getAccountRead() != null) {
-			example
-			  .createCriteria()
-			    .andAccountReadEqualTo(form.getAccountRead());
+			criteria.andAccountReadLike("%" + form.getAccountRead() + "%");
+		}
+
+		if (form.getActive() != null) {
+			criteria.andActiveEqualTo(form.getActive());
 		}
 		// @formatter:onn
 		

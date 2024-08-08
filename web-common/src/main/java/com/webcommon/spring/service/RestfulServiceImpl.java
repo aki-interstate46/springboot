@@ -1,5 +1,9 @@
 package com.webcommon.spring.service;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import org.springframework.validation.FieldError;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 
 import com.google.gson.Gson;
@@ -13,12 +17,22 @@ public abstract class RestfulServiceImpl extends BaseWebService {
 	/** 初期化処理 */
   private void init() {
     response = new JsonResponse();
+    response.setInputError(new LinkedHashMap<String, String>());
   }
 
 	/** 共通処理 */
-  public boolean commonValidation() {
-    return false;
-  }
+	public boolean commonValidation() {
+		if (result.hasErrors()) {
+			Map<String, String> errorMap = new LinkedHashMap<String, String>();
+			for (FieldError err : result.getFieldErrors()) {	
+				errorMap.put(err.getField(), err.getCode());
+			}
+			this.response.setGlobalError("えらーだよ");
+			this.response.setInputError(errorMap);
+			return true;
+		}
+		return false;
+	}
 
 	/** 返却処理 */
   private String json() {
@@ -61,7 +75,7 @@ public abstract class RestfulServiceImpl extends BaseWebService {
   public String post() throws Exception {
     this.init();
     if (this.commonValidation()) {
-      
+      return json();
     }
     this.postProcessor();
     return json();

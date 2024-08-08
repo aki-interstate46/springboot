@@ -1,6 +1,7 @@
 package com.webcommon.response;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,4 +35,14 @@ public class JsonResponse {
   private String status;
   private HashMap<String, Object> messageInfo;
   private Object response;
+
+  /**
+   * システムエラーをセットする
+   */
+  private String globalError;
+
+  /**
+   * 入力値のバリデーションエラーをセットする
+   */
+  private Map<String, String> inputError;
 }
