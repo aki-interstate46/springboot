@@ -3,12 +3,27 @@ https://docs.github.com/ja/get-started/writing-on-github/getting-started-with-wr
 
 # 環境情報
 > [!NOTE]
-> JDK17  
+> JDK21  
 > spring boot 3.3.2  
 > mriadb  
 > [vue3](https://ja.vuejs.org/)  
 > [Material Design Lite CSS](https://getmdl.io/)  
 > [アイコン fontawesome](https://fontawesome.com/icons/angle-right?f=classic&s=solid)  
+
+# 2024/08/08
+> [!NOTE]
+> [issues](https://github.com/aki-interstate46/springboot/issues/17)  
+> バリデーションの対応  
+> mybatisのログレベルを変更  
+> async/awaitの設定  
+
+> [!NOTE]
+> [issues](https://github.com/aki-interstate46/springboot/issues/15)  
+> アプリケーションプロパティの整理  
+
+> [!NOTE]
+> [issues](https://github.com/aki-interstate46/springboot/issues/13)  
+> RequestInterceptorの実装  
 
 # 2024/07/31
 > [!NOTE]
