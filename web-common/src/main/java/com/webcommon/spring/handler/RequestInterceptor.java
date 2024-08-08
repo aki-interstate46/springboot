@@ -24,7 +24,6 @@ public class RequestInterceptor implements HandlerInterceptor {
 	    "^CONTEXT_PATH/css/.*$",
 	    "^CONTEXT_PATH/images/.*$",
 	    "^CONTEXT_PATH/script/.*$",
-	    "^CONTEXT_PATH/js/.*$",
 	    "^CONTEXT_PATH/favicon.ico*$",
 	};
 	
