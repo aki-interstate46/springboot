@@ -9,6 +9,9 @@ spring:
     jdbcUrl: jdbc:mysql://localhost:13306/spring_boot_project_01?permitMysqlScheme
     username: root
     password: root
+logging:
+  level:
+    com.dbcommon.mybatis.springbootproject01.mapper.autogenerato: DEBUG
 job:
   service:
     package:

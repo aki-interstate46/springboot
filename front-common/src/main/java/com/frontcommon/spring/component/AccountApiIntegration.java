@@ -39,6 +39,7 @@ public class AccountApiIntegration {
     parameterMap.put("resourceId", form.getResourceId());
     parameterMap.put("accountName", form.getAccountName());
     parameterMap.put("accountRead", form.getAccountRead());
+    parameterMap.put("active", form.getActive());
     return restClient.getBodyTypeJsonResponse(URL, parameterMap);
   }
   

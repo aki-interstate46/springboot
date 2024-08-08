@@ -1,4 +1,3 @@
-const cocktailListInit = ["ホワイトレディ", "ブルーハワイ", "ニューヨーク"];
 const const_params = {
   search: false,
   page: 0,
@@ -33,16 +32,16 @@ window.addEventListener("load", function() {
         consoleLog("_params:" + _params)
         return _params;
       },
-      openDialog(processId, id) {
+      openDialog: async function(processId, id) {
         this.proccessId = processId;
         consoleLog("openDialog processId:", processId);
         consoleLog("openDialog id:", id);
         if ('edit' === processId || 'delete' === processId) {
           this.params = Object.assign({}, const_params);
-          if (id != '') {
+          if (isNotEmpty(id)) {
             this.params['accountId'] = id;
           }
-          axios.get("http://localhost:8080/account/rest?" + this.createParams())
+          await axios.get("http://localhost:8080/account/rest?" + this.createParams())
             // thenで成功した場合の処理
             .then((response) => {
               consoleLog("ステータスコード:", response.data);
@@ -52,11 +51,14 @@ window.addEventListener("load", function() {
               document.querySelectorAll('.dialogText').forEach((element, index) => {
                 document.querySelector("#" + element.id).parentNode.MaterialTextfield.change(values[element.id.replace('dialog_', '')]);
               });
-
+              // dialogText への設定
+              document.querySelectorAll('.dialogSelect').forEach((element, index) => {
+                document.querySelector("#" + element.id).parentNode.MaterialTextfield.change(values[element.id.replace('dialog_', '')]);
+              });
             })
             // catchでエラー時の挙動を定義
             .catch(err => {
-              consoleLog("err:", err);
+              exceptionHandler(err);
             });
         } else {
           // dialogText クラスの初期化
@@ -72,22 +74,28 @@ window.addEventListener("load", function() {
         dialog.close();
         this.get();
       },
-      next: function() {
+      next: async function() {
       },
-      back: function() {
+      back: async function() {
       },
       /** レスト処理(GET) */
-      get: function() {
+      get: async function() {
         consoleLog("ステータスコード:", this.params);
         this.params = Object.assign({}, const_params);
         // dialogText への設定
         document.querySelectorAll('.searchText').forEach((element, index) => {
           if (element.value != '') {
-            this.params[element.id] = element.value;
+            this.params[element.id.replace('search_', '')] = element.value;
+          }
+        });
+        // dialogText への設定
+        document.querySelectorAll('.searchSelect').forEach((element, index) => {
+          if (element.value != '') {
+            this.params[element.id.replace('search_', '')] = element.value;
           }
         });
         consoleLog("ステータスコード:", this.params);
-        axios.get("http://localhost:8080/account/rest?" + this.createParams())
+        await axios.get("http://localhost:8080/account/rest?" + this.createParams())
           // thenで成功した場合の処理
           .then((response) => {
             consoleLog("ステータスコード:", response.data);
@@ -95,26 +103,30 @@ window.addEventListener("load", function() {
           })
           // catchでエラー時の挙動を定義
           .catch(err => {
-            consoleLog("err:", err);
+            exceptionHandler(err);
           });
       },
       /** Dialog操作 */
-      dialogProccess: function() {
+      dialogProccess: async function() {
         // 新規登録
         if (this.proccessId == 'new') {
-          this.post();
+          if (await this.post()) {
+            this.closeDialog(this.proccessId);
+          }
         }
         // 編集
         if (this.proccessId == 'edit') {
-          this.put();
+          if (awaitthis.put()) {
+            this.closeDialog(this.proccessId);
+          }
         }
         // 削除
-        if (this.proccessId == 'delete') {
-          this.delete();
-        }
+//        if (this.proccessId == 'delete') {
+//          this.delete();
+//        }
       },
       /** レスト処理(post) */
-      post: function() {
+      post: async function() {
         consoleLog("ステータスコード:", this.params);
         this.params = Object.assign({}, const_dialog_params);
         // dialogText クラスの初期化
@@ -123,20 +135,36 @@ window.addEventListener("load", function() {
             this.params[element.id.replace('dialog_', '')] = element.value;
           }
         });
-        this.params['active'] = dialog_active.value;
+        // dialogSelet クラスの初期化
+        document.querySelectorAll('.dialogSelect').forEach((element, index) => {
+          if (element.value != '') {
+            this.params[element.id.replace('dialog_', '')] = element.value;
+          }
+        });
         consoleLog("ステータスコード:", this.params);
-        axios.post("http://localhost:8080/account/rest", this.createParams())
+        await axios.post("http://localhost:8080/account/rest", this.createParams())
           // thenで成功した場合の処理
           .then((response) => {
-            consoleLog("ステータスコード:", response.data);
+            consoleLog("post:", response.data);
+            consoleLog("ステータスコード:", response.data.inputError);
+            if (response.data.globalError !== '') {
+              values = response.data.inputError;
+              for (var item in values) {
+                $('#dialog_div_' + item).addClass('is-invalid');
+                $('#dialog_div_' + item).addClass('is-focused');
+                $('#dialog_error_' + item).text(values[item]);
+              }
+              alert(response.data.globalError);
+              return false;
+            }
+            return true;
           })
-          // catchでエラー時の挙動を定義
           .catch(err => {
-            consoleLog("err:", err);
+            exceptionHandler(err);
           });
       },
       /** レスト処理(PUT) */
-      put: function() {
+      put: async function() {
         consoleLog("ステータスコード:", this.params);
         this.params = Object.assign({}, const_dialog_params);
         // dialogText クラスの初期化
@@ -145,22 +173,61 @@ window.addEventListener("load", function() {
             this.params[element.id.replace('dialog_', '')] = element.value;
           }
         });
-        this.params['active'] = dialog_active.value;
+        // dialogText クラスの初期化
+        document.querySelectorAll('.dialogSelect').forEach((element, index) => {
+          if (element.value != '') {
+            this.params[element.id.replace('dialog_', '')] = element.value;
+          }
+        });
         consoleLog("ステータスコード:", this.params);
-        axios.put("http://localhost:8080/account/rest", this.createParams())
+        await axios.put("http://localhost:8080/account/rest", this.createParams())
           // thenで成功した場合の処理
           .then((response) => {
             consoleLog("ステータスコード:", response.data);
-          })
+            if (response.data.globalError !== '') {
+               values = response.data.inputError;
+               for (var item in values) {
+                 $('#dialog_div_' + item).addClass('is-invalid');
+                 $('#dialog_div_' + item).addClass('is-focused');
+                 $('#dialog_error_' + item).text(values[item]);
+               }
+               alert(response.data.globalError);
+               return false;
+             }
+           return true;
+         })
           // catchでエラー時の挙動を定義
           .catch(err => {
-            consoleLog("err:", err);
+            exceptionHandler(err);
           });
       },
       /** レスト処理(PUT) */
       exceptionHandler: function(error) {
         consoleLog("ステータスコード:", this.params);
-      }
+      },
+      /** focusIn */
+      focusIn: function(element) {
+        this.focusProcess('focusIn', element);
+      },
+      /** focusIn */
+      focusOut: function(element) {
+        this.focusProcess('focusOut', element);
+      },
+      /** focus */
+      focusProcess: function(focusKey, element) {
+        consoleLog(focusKey + ":", element);
+        const target = element.target;
+        const targetId = target.id;
+        const defaultId = targetId.replace('dialog_', '');
+        const elm = document.getElementById(targetId);
+        // required check
+        if (elm.required && isEmpty(elm.value)) {
+          $('#dialog_div_' + defaultId).addClass('is-invalid');
+          $('#dialog_div_' + defaultId).addClass('is-focused');
+          $('#dialog_error_' + defaultId).text("ひっすだよ(; ･`д･´)");
+          return;
+        }
+      },
     }
   }).mount('#app');
 }, false);
@@ -185,10 +252,38 @@ function unlockScreen() {
   return dfd.promise();
 }
 
+/*
+* 未入力の確認を行う
+* key:固定文言
+* value:表示内容尾
+ */
 function consoleLog(key, value) {
   if (true) {
-    console.log(key, value);
+    if (isEmpty(value)) {
+      console.log(key);
+    } else {
+      console.log(key, value);
+    }
   }
+}
+
+/*
+* 値が存在しない場合、true
+ * value:値
+ */
+function isEmpty(value) {
+  if (value  == undefined || value == null || value == '') {
+    return true;
+  }
+  return false;
+}
+
+/*
+ * 値が存在している場合、true
+ * value:値
+ */
+function isNotEmpty(value) {
+  return !isEmpty(value);
 }
 
 

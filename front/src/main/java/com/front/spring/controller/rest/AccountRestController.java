@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.front.spring.service.rest.AccountRestService;
 import com.frontcommon.form.AccountForm;
 import com.frontcommon.spring.controller.BaseFrontControler;
+import com.webcommon.validator.group.DeleteGroup;
+import com.webcommon.validator.group.PostGroup;
+import com.webcommon.validator.group.PutGroup;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -45,19 +48,19 @@ public class AccountRestController extends BaseFrontControler {
 	}
 	
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public String post(@Validated AccountForm form, BindingResult result, Model model, HttpServletRequest request) throws Exception {
+	public String post(@Validated(PostGroup.class) AccountForm form, BindingResult result, Model model, HttpServletRequest request) throws Exception {
 		service.setForm(form).setBindingResult(result).setModel(model).setRequest(request);
 		return service.post();
 	}
 	
 	@PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public String put(@Validated AccountForm form, BindingResult result, Model model, HttpServletRequest request) throws Exception {
+	public String put(@Validated(PutGroup.class) AccountForm form, BindingResult result, Model model, HttpServletRequest request) throws Exception {
 		service.setForm(form).setBindingResult(result).setModel(model).setRequest(request);
 		return service.put();
 	}
 	
 	@DeleteMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public String delete(@Validated AccountForm form, BindingResult result, Model model, HttpServletRequest request) throws Exception {
+	public String delete(@Validated(DeleteGroup.class) AccountForm form, BindingResult result, Model model, HttpServletRequest request) throws Exception {
 		service.setForm(form).setBindingResult(result).setModel(model).setRequest(request);
 		return service.delete();
 	}

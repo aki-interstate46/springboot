@@ -54,7 +54,7 @@ public class AccountApiRestController extends BaseApiRestControlerImpl {
 	 */
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public String get(AccountRequest form, BindingResult result, HttpServletRequest request) throws Exception {
-		service.setForm(form);
+		service.setForm(form).setBindingResult(result).setRequest(request);
 		return service.get();
 	}
 	
@@ -70,7 +70,7 @@ public class AccountApiRestController extends BaseApiRestControlerImpl {
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public String post(@RequestBody AccountRequest form, BindingResult result, HttpServletRequest request)
 	    throws Exception {
-		service.setForm(form);
+		service.setForm(form).setBindingResult(result).setRequest(request);
 		return service.post();
 	}
 	
@@ -86,7 +86,7 @@ public class AccountApiRestController extends BaseApiRestControlerImpl {
 	@PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public String put(@RequestBody AccountRequest form, BindingResult result, HttpServletRequest request)
 	    throws Exception {
-		service.setForm(form);
+		service.setForm(form).setBindingResult(result).setRequest(request);
 		return service.put();
 	}
 	
@@ -102,7 +102,7 @@ public class AccountApiRestController extends BaseApiRestControlerImpl {
 	@DeleteMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public String delete(@RequestBody AccountRequest form, BindingResult result, HttpServletRequest request)
 	    throws Exception {
-		service.setForm(form);
+		service.setForm(form).setBindingResult(result).setRequest(request);
 		return service.delete();
 	}
 	

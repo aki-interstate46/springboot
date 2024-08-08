@@ -65,22 +65,32 @@
             <div class="mdl-card mdl-cell mdl-cell--12-col">
               <div class="mdl-card__supporting-text">
                 <div class="mdl-grid">
-                  <div class="mdl-cell mdl-cell--4-col">
+                  <div class="mdl-cell mdl-cell--6-col">
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                      <input class="mdl-textfield__input searchText" type="text" id="accountId">
-                      <label class="mdl-textfield__label" for="accountId">accountId</label>
+                      <input class="mdl-textfield__input searchText" type="text" id="search_accountId">
+                      <label class="mdl-textfield__label" for="search_accountId">accountId</label>
                     </div>
                   </div>
-                  <div class="mdl-cell mdl-cell--4-col">
+                  <div class="mdl-cell mdl-cell--6-col">
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                      <input class="mdl-textfield__input searchText" type="text" id="accountName">
-                      <label class="mdl-textfield__label" for="accountName">accountName</label>
+                      <input class="mdl-textfield__input searchText" type="text" id="search_accountName">
+                      <label class="mdl-textfield__label" for="search_accountName">accountName</label>
                     </div>
                   </div>
-                  <div class="mdl-cell mdl-cell--4-col">
+                  <div class="mdl-cell mdl-cell--6-col">
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                       <input class="mdl-textfield__input searchText" type="text" id="accountRead">
-                      <label class="mdl-textfield__label" for="accountRead">accountRead</label>
+                      <label class="mdl-textfield__label" for="search_accountRead">accountRead</label>
+                    </div>
+                  </div>
+                  <div class="mdl-cell mdl-cell--6-col">
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                      <select class="mdl-textfield__input searchSelect" id="search_active" required>
+                        <option v-for="data in activeList" v-bind:value="data.id" v-bind:key="data.id">
+                          {{data.id}}
+                        </option>
+                      </select>
+                      <label for="search_active" class="mdl-textfield__label">active</label>
                     </div>
                   </div>
                 </div>
@@ -108,7 +118,6 @@
                       <th>accountName</th>
                       <th>accountRead</th>
                       <th>パスワード</th>
-
                     </tr>
                   </thead>
                   <tbody>
@@ -139,50 +148,50 @@
           <div class="mdl-card__supporting-text">
             <div class="mdl-grid">
               <div class="mdl-cell mdl-cell--12-col">
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="dialog_div_accountId">
                   <input class="mdl-textfield__input dialogText" type="text" id="dialog_accountId" required>
                   <label class="mdl-textfield__label" for="dialog_accountId">dialog_accountId</label>
                   <span class="mdl-textfield__error">エラーだよ(; ･`д･´)</span>
                 </div>
               </div>
               <div class="mdl-cell mdl-cell--12-col">
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                  <input class="mdl-textfield__input dialogText" type="text" id="dialog_resourceId" required>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="dialog_div_resourceId">
+                  <input class="mdl-textfield__input dialogText" type="text" id="dialog_resourceId" v-on:focus="focusIn" v-on:blur="focusOut" required>
                   <label class="mdl-textfield__label" for="dialog_resourceId">dialog_resourceId</label>
-                  <span class="mdl-textfield__error">エラーだよ(; ･`д･´)</span>
+                  <span class="mdl-textfield__error" id="dialog_error_resourceId">エラーだよ(; ･`д･´)</span>
                 </div>
               </div>
               <div class="mdl-cell mdl-cell--12-col">
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                  <input class="mdl-textfield__input dialogText" type="text" id="dialog_accountName" required>
-                  <label class="mdl-textfield__label" for="dialog_accountName">dialog_accountName</label>
-                  <span class="mdl-textfield__error">エラーだよ(; ･`д･´)</span>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="dialog_div_accountName">
+                  <input class="mdl-textfield__input dialogText" type="text" id="dialog_accountName" v-on:focus="focusIn" v-on:blur="focusOut" required>
+                  <label class="mdl-textfield__label" for="dialog_accountName" id="dialog_label_accountName">dialog_accountName</label>
+                  <span class="mdl-textfield__error" id="dialog_error_accountName">エラーだよ(; ･`д･´)</span>
                 </div>
               </div>
               <div class="mdl-cell mdl-cell--12-col">
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                  <input class="mdl-textfield__input dialogText" type="text" id="dialog_accountRead" required>
-                  <label class="mdl-textfield__label" for="dialog_accountRead">dialog_accountRead</label>
-                  <span class="mdl-textfield__error">エラーだよ(; ･`д･´)</span>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="dialog_div_accountRead">
+                  <input class="mdl-textfield__input dialogText" type="text" id="dialog_accountRead" v-on:focus="focusIn" v-on:blur="focusOut" required>
+                  <label class="mdl-textfield__label" for="dialog_accountRead" id="dialog_label_accountRead">dialog_accountRead</label>
+                  <span class="mdl-textfield__error" id="dialog_error_accountRead">エラーだよ(; ･`д･´)</span>
                 </div>
               </div>
               <div class="mdl-cell mdl-cell--12-col">
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                  <input class="mdl-textfield__input dialogText" type="text" id="dialog_mailaddress" required>
-                  <label class="mdl-textfield__label" for="dialog_mailaddress">dialog_mailaddress</label>
-                  <span class="mdl-textfield__error">エラーだよ(; ･`д･´)</span>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="dialog_div_mailaddress">
+                  <input class="mdl-textfield__input dialogText" type="text" id="dialog_mailaddress" v-on:focus="focusIn" v-on:blur="focusOut" required>
+                  <label class="mdl-textfield__label" for="dialog_mailaddress" id="dialog_label_mailaddress">dialog_mailaddress</label>
+                  <span class="mdl-textfield__error" id="dialog_error_mailaddress">エラーだよ(; ･`д･´)</span>
                 </div>
               </div>
               <div class="mdl-cell mdl-cell--12-col">
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                  <input class="mdl-textfield__input dialogText" type="text" id="dialog_password">
-                  <label class="mdl-textfield__label" for="dialog_password">dialog_password</label>
-                  <span class="mdl-textfield__error">エラーだよ(; ･`д･´)</span>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="dialog_div_password">
+                  <input class="mdl-textfield__input dialogText" type="text" id="dialog_password" v-on:focus="focusIn" v-on:blur="focusOut" required>
+                  <label class="mdl-textfield__label" for="dialog_password" id="dialog_label_password">dialog_password</label>
+                  <span class="mdl-textfield__error" id="dialog_error_password">エラーだよ(; ･`д･´)</span>
                 </div>
               </div>
               <div class="mdl-cell mdl-cell--12-col">
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select">
-                  <select class="mdl-textfield__input" id="dialog_active" required>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select" id="dialog_div_active">
+                  <select class="mdl-textfield__input dialogSelect" id="dialog_active" required>
                     <option v-for="data in activeList" v-bind:value="data.id" v-bind:key="data.id">
                       {{data.id}}
                     </option>
