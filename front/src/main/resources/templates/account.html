@@ -10,11 +10,14 @@
   <link href="https://use.fontawesome.com/releases/v6.2.0/css/all.css" rel="stylesheet">
   <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.deep_purple-pink.min.css">
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="https://unpkg.com/vue-i18n@9"></script>
   <script src="https://unpkg.com/vue-router@4.0.15/dist/vue-router.global.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue3-sfc-loader/dist/vue3-sfc-loader.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-  <script type="text/javascript" src="js/vue.js"></script>
+  <script type="text/javascript" src="script/const.js"></script>
+  <script type="text/javascript" src="script/localization.js"></script>
+  <script type="text/javascript" src="script/vue.js"></script>
   <link rel="stylesheet" href="css/styles.css">
   <script>
     //loadによるイベント登録
@@ -51,13 +54,16 @@
       <header class="mdl-layout__header mdl-layout__header--scroll mdl-color--primary">
         <div class="mdl-layout--large-screen-only mdl-layout__header-row">
         </div>
-        <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--primary-dark">
-          <a href="#overview" class="mdl-layout__tab is-active">Overview</a>
-          <a href="#features" class="mdl-layout__tab">Features</a>
-          <a href="#features" class="mdl-layout__tab">Details</a>
-          <a href="#features" class="mdl-layout__tab">Technology</a>
-          <a href="#features" class="mdl-layout__tab">FAQ</a>
-        </div>
+        <div class="mdl-layout__tab-bar">
+          <!-- Left aligned menu below button -->
+          <button id="demo-menu-lower-left" class="mdl-button mdl-js-button mdl-button--icon">
+            <i class="fa-solid fa-globe"></i>
+          </button>        
+          <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-left">
+            <li class="mdl-menu__item" v-on:click="changeLanguage('ja')">{{ $t("ja") }}</li>
+            <li class="mdl-menu__item" v-on:click="changeLanguage('en')">{{ $t("en") }}</li>
+          </ul>
+      </div>
       </header>
       <main class="mdl-layout__content">
         <div class="mdl-layout__tab-panel is-active" id="overview">
@@ -68,29 +74,29 @@
                   <div class="mdl-cell mdl-cell--6-col">
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                       <input class="mdl-textfield__input searchText" type="text" id="search_accountId">
-                      <label class="mdl-textfield__label" for="search_accountId">accountId</label>
+                      <label class="mdl-textfield__label" for="search_accountId">{{ $t("accountId") }}</label>
                     </div>
                   </div>
                   <div class="mdl-cell mdl-cell--6-col">
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                       <input class="mdl-textfield__input searchText" type="text" id="search_accountName">
-                      <label class="mdl-textfield__label" for="search_accountName">accountName</label>
+                      <label class="mdl-textfield__label" for="search_accountName">{{ $t("accountName") }}</label>
                     </div>
                   </div>
                   <div class="mdl-cell mdl-cell--6-col">
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                       <input class="mdl-textfield__input searchText" type="text" id="accountRead">
-                      <label class="mdl-textfield__label" for="search_accountRead">accountRead</label>
+                      <label class="mdl-textfield__label" for="search_accountRead">{{ $t("accountRead") }}</label>
                     </div>
                   </div>
                   <div class="mdl-cell mdl-cell--6-col">
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                       <select class="mdl-textfield__input searchSelect" id="search_active" required>
                         <option v-for="data in activeList" v-bind:value="data.id" v-bind:key="data.id">
-                          {{data.id}}
+                          {{ $t("active." + data.id) }}
                         </option>
                       </select>
-                      <label for="search_active" class="mdl-textfield__label">active</label>
+                      <label for="search_active" class="mdl-textfield__label">{{ $t("activeInfo") }}</label>
                     </div>
                   </div>
                 </div>
@@ -113,11 +119,11 @@
                   <thead>
                     <tr>
                       <th></th>
-                      <th>accountId</th>
-                      <th>resourceId</th>
-                      <th>accountName</th>
-                      <th>accountRead</th>
-                      <th>パスワード</th>
+                      <th>{{ $t("accountId") }}</th>
+                      <th>{{ $t("resourceId") }}</th>
+                      <th>{{ $t("accountName") }}</th>
+                      <th>{{ $t("accountRead") }}</th>
+                      <th>{{ $t("password") }}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -150,53 +156,53 @@
               <div class="mdl-cell mdl-cell--12-col">
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="dialog_div_accountId">
                   <input class="mdl-textfield__input dialogText" type="text" id="dialog_accountId" required>
-                  <label class="mdl-textfield__label" for="dialog_accountId">dialog_accountId</label>
-                  <span class="mdl-textfield__error">エラーだよ(; ･`д･´)</span>
+                  <label class="mdl-textfield__label" for="dialog_accountId">{{ $t("accountId") }}</label>
+                  <span class="mdl-textfield__error">{{ $t("NotNull") }}</span>
                 </div>
               </div>
               <div class="mdl-cell mdl-cell--12-col">
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="dialog_div_resourceId">
                   <input class="mdl-textfield__input dialogText" type="text" id="dialog_resourceId" v-on:focus="focusIn" v-on:blur="focusOut" required>
-                  <label class="mdl-textfield__label" for="dialog_resourceId">dialog_resourceId</label>
-                  <span class="mdl-textfield__error" id="dialog_error_resourceId">エラーだよ(; ･`д･´)</span>
+                  <label class="mdl-textfield__label" for="dialog_resourceId">{{ $t("resourceId") }}</label>
+                  <span class="mdl-textfield__error" id="dialog_error_resourceId">{{ $t("NotNull") }}</span>
                 </div>
               </div>
               <div class="mdl-cell mdl-cell--12-col">
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="dialog_div_accountName">
                   <input class="mdl-textfield__input dialogText" type="text" id="dialog_accountName" v-on:focus="focusIn" v-on:blur="focusOut" required>
-                  <label class="mdl-textfield__label" for="dialog_accountName" id="dialog_label_accountName">dialog_accountName</label>
-                  <span class="mdl-textfield__error" id="dialog_error_accountName">エラーだよ(; ･`д･´)</span>
+                  <label class="mdl-textfield__label" for="dialog_accountName" id="dialog_label_accountName">{{ $t("accountName") }}</label>
+                  <span class="mdl-textfield__error" id="dialog_error_accountName">{{ $t("NotNull") }}</span>
                 </div>
               </div>
               <div class="mdl-cell mdl-cell--12-col">
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="dialog_div_accountRead">
                   <input class="mdl-textfield__input dialogText" type="text" id="dialog_accountRead" v-on:focus="focusIn" v-on:blur="focusOut" required>
-                  <label class="mdl-textfield__label" for="dialog_accountRead" id="dialog_label_accountRead">dialog_accountRead</label>
-                  <span class="mdl-textfield__error" id="dialog_error_accountRead">エラーだよ(; ･`д･´)</span>
+                  <label class="mdl-textfield__label" for="dialog_accountRead" id="dialog_label_accountRead">{{ $t("accountRead") }}</label>
+                  <span class="mdl-textfield__error" id="dialog_error_accountRead">{{ $t("NotNull") }}</span>
                 </div>
               </div>
               <div class="mdl-cell mdl-cell--12-col">
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="dialog_div_mailaddress">
                   <input class="mdl-textfield__input dialogText" type="text" id="dialog_mailaddress" v-on:focus="focusIn" v-on:blur="focusOut" required>
-                  <label class="mdl-textfield__label" for="dialog_mailaddress" id="dialog_label_mailaddress">dialog_mailaddress</label>
-                  <span class="mdl-textfield__error" id="dialog_error_mailaddress">エラーだよ(; ･`д･´)</span>
+                  <label class="mdl-textfield__label" for="dialog_mailaddress" id="dialog_label_mailaddress">{{ $t("mailaddress") }}</label>
+                  <span class="mdl-textfield__error" id="dialog_error_mailaddress">{{ $t("NotNull") }}</span>
                 </div>
               </div>
               <div class="mdl-cell mdl-cell--12-col">
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="dialog_div_password">
                   <input class="mdl-textfield__input dialogText" type="text" id="dialog_password" v-on:focus="focusIn" v-on:blur="focusOut" required>
-                  <label class="mdl-textfield__label" for="dialog_password" id="dialog_label_password">dialog_password</label>
-                  <span class="mdl-textfield__error" id="dialog_error_password">エラーだよ(; ･`д･´)</span>
+                  <label class="mdl-textfield__label" for="dialog_password" id="dialog_label_password">{{ $t("password") }}</label>
+                  <span class="mdl-textfield__error" id="dialog_error_password">{{ $t("NotNull") }}</span>
                 </div>
               </div>
               <div class="mdl-cell mdl-cell--12-col">
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select" id="dialog_div_active">
                   <select class="mdl-textfield__input dialogSelect" id="dialog_active" required>
                     <option v-for="data in activeList" v-bind:value="data.id" v-bind:key="data.id">
-                      {{data.id}}
+                      {{ $t("active." + data.id) }}
                     </option>
                   </select>
-                  <label for="sample3" class="mdl-textfield__label">active</label>
+                  <label for="sample3" class="mdl-textfield__label">{{ $t("activeInfo") }}</label>
                 </div>
               </div>
             </div>

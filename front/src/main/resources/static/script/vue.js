@@ -1,10 +1,42 @@
+/*
+ * vue.js内で利用するconst情報 
+ * vue.js以外で利用する場合はconst.jsに記載してください
+ */
+
+/** 検索処理時のデフォルトパラメータ */
 const const_params = {
   search: false,
   page: 0,
 };
+
+/** Dialog送信時のデフォルトパラメータ */
 const const_dialog_params = {
 };
-//Mount App.vue
+
+/** 多言語対応 */
+const i18n = VueI18n.createI18n({
+  locale: LANG_JA,
+  messages
+});
+
+/** Vueのオプション */
+const options = {
+  //<i18n>タグの読み込み
+  //customBlockHandler(block, filename, options) {
+  //  if (block.type !== 'i18n') {
+  //    return;
+  // }
+  //  // メッセージの登録
+  //  const messages = JSON.parse(block.content);
+  //  for (let locale in messages) {
+  //   i18n.global.mergeLocaleMessage(locale, messages[locale]);
+  //  }
+  //}
+}
+
+/*
+ *vue mount処理
+ */
 window.addEventListener("load", function() {
   Vue.createApp({
     data() {
@@ -22,6 +54,14 @@ window.addEventListener("load", function() {
       }
     },
     methods: {
+      /* UIの言語を切り替える */
+      changeLanguage: function(lang) {
+        // 言語が未入力、または対象外の言語の場合、日本語を設定する
+        if (!lang || (LANG_JA !== lang && LANG_EN !== lang)) {
+          lang = LANG_JA;
+        }
+        this.$i18n.locale = lang;
+      },
       createParams: function(processId) {
         var _params = "";
         for (var key in this.params) {
@@ -121,9 +161,9 @@ window.addEventListener("load", function() {
           }
         }
         // 削除
-//        if (this.proccessId == 'delete') {
-//          this.delete();
-//        }
+        //        if (this.proccessId == 'delete') {
+        //          this.delete();
+        //        }
       },
       /** レスト処理(post) */
       post: async function() {
@@ -152,7 +192,7 @@ window.addEventListener("load", function() {
               for (var item in values) {
                 $('#dialog_div_' + item).addClass('is-invalid');
                 $('#dialog_div_' + item).addClass('is-focused');
-                $('#dialog_error_' + item).text(values[item]);
+                $('#dialog_error_' + item).text(messages[this.$i18n.locale][values[item]]);
               }
               alert(response.data.globalError);
               return false;
@@ -185,17 +225,17 @@ window.addEventListener("load", function() {
           .then((response) => {
             consoleLog("ステータスコード:", response.data);
             if (response.data.globalError !== '') {
-               values = response.data.inputError;
-               for (var item in values) {
-                 $('#dialog_div_' + item).addClass('is-invalid');
-                 $('#dialog_div_' + item).addClass('is-focused');
-                 $('#dialog_error_' + item).text(values[item]);
-               }
-               alert(response.data.globalError);
-               return false;
-             }
-           return true;
-         })
+              values = response.data.inputError;
+              for (var item in values) {
+                $('#dialog_div_' + item).addClass('is-invalid');
+                $('#dialog_div_' + item).addClass('is-focused');
+                $('#dialog_error_' + item).text(values[item]);
+              }
+              alert(response.data.globalError);
+              return false;
+            }
+            return true;
+          })
           // catchでエラー時の挙動を定義
           .catch(err => {
             exceptionHandler(err);
@@ -224,12 +264,14 @@ window.addEventListener("load", function() {
         if (elm.required && isEmpty(elm.value)) {
           $('#dialog_div_' + defaultId).addClass('is-invalid');
           $('#dialog_div_' + defaultId).addClass('is-focused');
-          $('#dialog_error_' + defaultId).text("ひっすだよ(; ･`д･´)");
+          $('#dialog_error_' + defaultId).text(messages[this.$i18n.locale][values[item]]);
           return;
         }
       },
     }
-  }).mount('#app');
+  }, options)
+    .use(i18n)
+    .mount('#app');
 }, false);
 
 /*
@@ -272,7 +314,7 @@ function consoleLog(key, value) {
  * value:値
  */
 function isEmpty(value) {
-  if (value  == undefined || value == null || value == '') {
+  if (value == undefined || value == null || value == '') {
     return true;
   }
   return false;
