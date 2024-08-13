@@ -13,7 +13,6 @@ import com.jobcommon.spring.service.JobService;
 import com.systemcommon.enums.SystemExit;
 import com.systemcommon.spring.component.EnvironmentOperationList;
 import com.systemcommon.spring.component.MessageSourceOperationList;
-import com.systemcommon.spring.configuration.SystemLog;
 
 /**
  * Job実行共通クラス
@@ -35,9 +34,6 @@ public abstract class JobRunner {
 	
 	/** メッセージ情報 */
 	static MessageSourceOperationList mso;
-	
-	/** ログ情報 */
-	static SystemLog systemLog;
 	
 	/**
 	 * バッチ起動
@@ -71,7 +67,6 @@ public abstract class JobRunner {
 			
 			eo = context.getBean(EnvironmentOperationList.class);
 			mso = context.getBean(MessageSourceOperationList.class);
-			systemLog = context.getBean(SystemLog.class);
 			
 			final String jobId = args[1];
 			String jobInfo = JOB_PACKAGE + "." + jobId;

@@ -1,0 +1,4 @@
+job:
+  service:
+    package:
+      sample: com.job.spring.service.SampleJobService

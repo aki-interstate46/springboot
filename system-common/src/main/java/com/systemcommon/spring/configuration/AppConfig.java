@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 
 @Configuration(proxyBeanMethods = false)
-public class SystemLog {
+public class AppConfig {
 	
 	@Bean
 	@Scope("prototype")
