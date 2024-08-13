@@ -10,6 +10,15 @@ https://docs.github.com/ja/get-started/writing-on-github/getting-started-with-wr
 > [Material Design Lite CSS](https://getmdl.io/)  
 > [アイコン fontawesome](https://fontawesome.com/icons/angle-right?f=classic&s=solid)  
 
+# 2024/08/13
+> [!NOTE]
+> [issues](https://github.com/aki-interstate46/springboot/issues/22)  
+> ログの対応
+
+> [!NOTE]
+> [issues](https://github.com/aki-interstate46/springboot/issues/20)  
+> 多言語対応
+
 # 2024/08/08
 > [!NOTE]
 > [issues](https://github.com/aki-interstate46/springboot/issues/17)  
