@@ -2,48 +2,24 @@ package com.systemcommon.spring.component;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.InjectionPoint;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
 
-import com.systemcommon.util.UtilGetClassName;
-
-@Component
+@Configuration(proxyBeanMethods = false)
 public class SystemLog {
-  
-  private final Logger lOG = LoggerFactory.getLogger(UtilGetClassName.getClassName());
-  
-  @Autowired
-  private EnvironmentOperationList eol;
-  
-  private boolean common() {
-    return true;
-  }
-  
-  public void debug() {
-    if (this.common()) {
-      lOG.debug(null);
-    }
-  }
-  
-  public void info(String msg, String args) {
-    UtilGetClassName.getClassName();
-    if (this.common()) {
-      lOG.info(msg, args);
-    }
-    
-  }
-  
-  public void warn(Exception e) {
-    if (this.common()) {
-      lOG.debug(null);
-    }
-  }
-  
-  public void error(Exception e) {
-    if (this.common()) {
-      lOG.error(null, e);
-    }
-    
-  }
-  
+	
+	@Bean
+	@Scope("prototype")
+	public Logger logger(InjectionPoint injectionPoint) {
+    Logger logger;
+    try {
+      logger = LoggerFactory.getLogger(injectionPoint.getMethodParameter().getContainingClass());
+		} catch (Exception e) {
+	    logger = LoggerFactory.getLogger(injectionPoint.getField().getDeclaringClass());
+		}
+    return logger;
+	}
+	
 }
