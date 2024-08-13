@@ -13,7 +13,7 @@ import com.jobcommon.spring.service.JobService;
 import com.systemcommon.enums.SystemExit;
 import com.systemcommon.spring.component.EnvironmentOperationList;
 import com.systemcommon.spring.component.MessageSourceOperationList;
-import com.systemcommon.spring.component.SystemLog;
+import com.systemcommon.spring.configuration.SystemLog;
 
 /**
  * Job実行共通クラス

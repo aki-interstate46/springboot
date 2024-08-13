@@ -1,4 +1,4 @@
-package com.systemcommon.spring.component;
+package com.systemcommon.spring.configuration;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
