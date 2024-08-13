@@ -12,7 +12,3 @@ spring:
 logging:
   level:
     com.dbcommon.mybatis.springbootproject01.mapper.autogenerato: DEBUG
-job:
-  service:
-    package:
-      sample: com.job.spring.service.SampleJobService
